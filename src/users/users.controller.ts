@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   NotFoundException,
   Param,
@@ -41,5 +42,16 @@ export class UsersController {
   @Put(':id')
   async update(@Param('id') id: number, @Body() user: User): Promise<any> {
     return this.usersService.update(id, user);
+  }
+
+  //delete user
+  @Delete(':id')
+  async delete(@Param('id') id: number): Promise<any> {
+    //handle error if user does not exist
+    const user = await this.usersService.findOne(id);
+    if (!user) {
+      throw new NotFoundException('User does not exist!');
+    }
+    return this.usersService.delete(id);
   }
 }
