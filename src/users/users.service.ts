@@ -17,4 +17,9 @@ export class UsersService {
   async findOne(id: number): Promise<User> {
     return this.userRepository.findOne({ where: { id } });
   }
+
+  async create(user: Partial<User>): Promise<User> {
+    const newUser = this.userRepository.create(user);
+    return this.userRepository.save(newUser);
+  }
 }
