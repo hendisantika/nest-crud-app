@@ -22,4 +22,9 @@ export class UsersService {
     const newUser = this.userRepository.create(user);
     return this.userRepository.save(newUser);
   }
+
+  async update(id: number, user: Partial<User>): Promise<User> {
+    await this.userRepository.update(id, user);
+    return this.userRepository.findOne({ where: { id } });
+  }
 }
