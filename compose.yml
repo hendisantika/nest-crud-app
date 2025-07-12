@@ -1,29 +1,28 @@
 services:
   nestapp:
     container_name: nestapp
-    image: francescoxx/nestapp:1.0.0
+    image: hendisantika/nestapp:1.0.0
     build: .
     ports:
       - '3000:3000'
     environment:
-      - DB_TYPE=postgres
-      - PG_USER=postgres
-      - PG_PASSWORD=postgres
-      - PG_DB=postgres
-      - PG_PORT=5432
+      - DB_TYPE=mysql
+      - PG_USER=root
+      - PG_PASSWORD=root
+      - PG_DB=nestapp
+      - PG_PORT=3306
       - PG_HOST=db
     depends_on:
       - db
   db:
     container_name: db
-    image: postgres:17.5-alpine3.22
+    image: mysql:8.0
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: postgres
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: nestapp
     ports:
-      - '5432:5432'
+      - '3306:3306'
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - ./mysql_data:/var/lib/mysql
 volumes:
-  pgdata: { }
+  mysql_data: { }

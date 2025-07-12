@@ -4,13 +4,15 @@ LABEL authors="hendisantika"
 WORKDIR /app
 
 COPY package*.json ./
+COPY pnpm-lock.yaml ./
 
-RUN npm install
+RUN npm install -g pnpm
+RUN pnpm install
 
 COPY . .
 
-RUN npm run build
+RUN pnpm run build
 
 EXPOSE 3000
 
-CMD ["npm", "run", "start:prod"]
+CMD ["pnpm", "run", "start:prod"]
